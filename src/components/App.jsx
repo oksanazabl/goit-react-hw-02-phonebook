@@ -1,5 +1,6 @@
-import { nanoid } from 'nanoid';
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
+
 import Section from './Section';
 import PhonebookForm from './PhonebookForm';
 import PhonebookContacts from './PhonebookContatcs';
@@ -8,44 +9,39 @@ class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
-  handleNameChange = event => {
-    this.setState({ name: event.target.value });
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    const { name, contacts } = this.state;
-    const newContact = { id: nanoid(), name };
-    this.setState({ contacts: [...contacts, newContact], name: '' });
+    const { name, number } = this.state;
+    const id = nanoid();
+    const contact = { id, name, number };
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, contact],
+      name: '',
+      number: ''
+    }));
   };
 
   render() {
-    const { name, contacts } = this.state;
+    const { name, contacts, number } = this.state;
 
     return (
       <>
         <Section title="Phonebook">
           <PhonebookForm
             name={name}
+            number={number}
             handleSubmit={this.handleSubmit}
-            handleNameChange={this.handleNameChange}
+            handleChange={this.handleChange}
+            
           />
-          {/* <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nameInput">Name</label>
-            <input
-              type="text"
-              id="nameInput"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              value={name}
-              onChange={this.handleNameChange}
-            />
-            <button type="submit">Add Contact</button>
-          </form> */}
         </Section>
 
         <Section title="Contacts">
