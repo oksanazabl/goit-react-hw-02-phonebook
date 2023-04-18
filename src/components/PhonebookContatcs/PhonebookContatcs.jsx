@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
+import css from './PhonebookContatcs.module.css';
 
 const PhonebookContacts = ({ contacts,onDeleteContact }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => (
-        <li key={id}>
+        <li className={css.contact_item} key={id}>
           {name}: {number}
-          <button type="button" onClick={() => onDeleteContact(id)}>
-          
+          <button className={css.button} type="button" onClick={() => onDeleteContact(id)}>
+          Delete Contact
         </button>
         </li>
       ))}
