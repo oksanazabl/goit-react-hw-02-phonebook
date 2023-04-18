@@ -13,6 +13,7 @@ const PhonebookForm = ({ handleSubmit, name, handleChange, number }) => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             onChange={handleChange}
+            placeholder="Name"
           />
           <label htmlFor="number">Phone number:</label>
           <input
@@ -23,6 +24,7 @@ const PhonebookForm = ({ handleSubmit, name, handleChange, number }) => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={handleChange}
+            placeholder="Phone number"
           />
           <button type="submit">Add Contact</button>
         </form>
