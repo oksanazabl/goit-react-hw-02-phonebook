@@ -5,16 +5,12 @@ import { nanoid } from 'nanoid';
 import PhonebookForm from './PhonebookForm';
 import PhonebookContacts from './PhonebookContatcs';
 import PhonebookFilter from './PhonebookFilter';
-import filterContacts from '../utils/filterContacts'
+import filterContacts from '../utils/filterContacts';
+import isContactExist from '../utils/isContactExist';
 
 class App extends Component {
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: [ ],
     filter: '',
     name: '',
     number: '',
@@ -27,11 +23,23 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
+
+    const { name, number,contacts } = this.state;
     const id = nanoid();
     const contact = { id, name, number };
+
+    if (isContactExist(name, contacts)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+    const newContact = {
+      id: id,
+      name,
+      number,
+    };
+
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
+      contacts: [newContact,...prevState.contacts],
       name: '',
       number: '',
     }));
@@ -40,7 +48,6 @@ class App extends Component {
   handleFilterChange = event => {
     this.setState({ filter: event.target.value });
   };
-
 
   render() {
     const { name, contacts, number, filter } = this.state;
@@ -59,7 +66,7 @@ class App extends Component {
           filter={filter}
           onFilterSet={this.handleFilterChange}
         />
-         <PhonebookContacts contacts={newContacts} />
+        <PhonebookContacts contacts={newContacts} />
       </div>
     );
   }
