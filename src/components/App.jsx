@@ -26,7 +26,7 @@ class App extends Component {
 
     const { name, number,contacts } = this.state;
     const id = nanoid();
-    const contact = { id, name, number };
+    // const contact = { id, name, number };
 
     if (isContactExist(name, contacts)) {
       alert(`${name} is already in contacts`);
@@ -49,6 +49,12 @@ class App extends Component {
     this.setState({ filter: event.target.value });
   };
 
+  handleDeleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(({ id }) => id !== contactId),
+    }));
+  };
+
   render() {
     const { name, contacts, number, filter } = this.state;
     const newContacts = filterContacts(contacts, filter);
@@ -66,7 +72,7 @@ class App extends Component {
           filter={filter}
           onFilterSet={this.handleFilterChange}
         />
-        <PhonebookContacts contacts={newContacts} />
+        <PhonebookContacts contacts={newContacts} onDeleteContact={this.handleDeleteContact} />
       </div>
     );
   }
