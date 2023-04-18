@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-
-// import Section from './Section';
+import Container from './Container';
 import PhonebookForm from './PhonebookForm';
 import PhonebookContacts from './PhonebookContatcs';
 import PhonebookFilter from './PhonebookFilter';
@@ -59,7 +58,7 @@ class App extends Component {
     const { name, contacts, number, filter } = this.state;
     const newContacts = filterContacts(contacts, filter);
     return (
-      <div>
+      <Container>
         <h1>Phonebook</h1>
         <PhonebookForm
           name={name}
@@ -73,7 +72,7 @@ class App extends Component {
           onFilterSet={this.handleFilterChange}
         />
         <PhonebookContacts contacts={newContacts} onDeleteContact={this.handleDeleteContact} />
-      </div>
+      </Container>
     );
   }
 }
