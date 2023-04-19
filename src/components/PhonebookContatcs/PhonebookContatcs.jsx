@@ -13,12 +13,7 @@ const PhonebookContacts = ({ contacts,onDeleteContact }) => {
         </li>
       ))}
     </ul>
-    //     <ul>
-    //   {contacts.map(contact => (
-    //     <li key={contact.id}>{contact.name}</li>
-    //   ))}
-    // </ul>
-  );
+   );
 };
 
 PhonebookContacts.propTypes = {

@@ -11,7 +11,6 @@ const PhonebookFilter = ({ onFilterSet, filter }) => {
           type="text"
           placeholder="Search contacts by name"
           value={filter}
-          // onChange={handleFilterChange}
         />
       </label>
     </>

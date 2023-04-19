@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import css from './PhonebookForm.module.css';
-// import { nanoid } from 'nanoid';
 import { Component } from 'react';
 
 class PhonebookForm extends Component {
@@ -11,17 +10,7 @@ class PhonebookForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    // const { contacts } = this.props;
-    const { name, number } = this.state;
-    // const isContactExist = contacts.some(({ name: existingName }) =>
-    //   existingName.toLowerCase() === name.toLowerCase()
-    // );
-
-    // if (isContactExist) {
-    //   alert(`${name} is already in contacts`);
-    //   return;
-    // }
-
+    const { name, number } = this.state;   
     const contact = { name, number };
     this.props.onSubmit(contact);
     this.setState({ name: '', number: '' });
