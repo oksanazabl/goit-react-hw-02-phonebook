@@ -1,43 +1,36 @@
 // import PropTypes from 'prop-types';
 import css from './PhonebookForm.module.css';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { Component } from 'react';
-import isContactExist from '../../utils/isContactExist';
 
 class PhonebookForm extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+
+    // const { contacts } = this.props;
+    const { name, number } = this.state;
+    // const isContactExist = contacts.some(({ name: existingName }) =>
+    //   existingName.toLowerCase() === name.toLowerCase()
+    // );
+
+    // if (isContactExist) {
+    //   alert(`${name} is already in contacts`);
+    //   return;
+    // }
+
+    const contact = { name, number };
+    this.props.onSubmit(contact);
+    this.setState({ name: '', number: '' });
   };
 
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    const { name, number, contacts } = this.state;
-    const id = nanoid();
-    // const contact = { id, name, number };
-
-    if (isContactExist(name, contacts)) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
-    const newContact = {
-      id: id,
-      name,
-      number,
-    };
-
-    this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-      name: '',
-      number: '',
-    }));
+    this.props.handleChange(event);
   };
 
   render() {
@@ -79,7 +72,5 @@ class PhonebookForm extends Component {
     );
   }
 }
-
-
 
 export default PhonebookForm;
